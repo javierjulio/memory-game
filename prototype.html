@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Memory puzzle game</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      :root {
+        --primary-color: #1A59FF;
+        --secondary-color: #ab17e6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      }
+
+      .disable-text-selection {
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .move-label {
+        margin-bottom: 20px;
+      }
+
+      .full-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        grid-gap: 20px;
+      }
+
+.card {
+  --flipped: 0;
+  /* --delay: .0s; */
+  --card-size: 60px;
+  --card-perspective-modifier: 8;
+
+  cursor: pointer;
+  display: grid;
+  perspective: calc(var(--card-size) * var(--card-perspective-modifier));
+  transition: transform .2s;
+}
+
+.card:active {
+  transform: scale(0.95);
+}
+
+.card.toggled {
+  --flipped: 1;
+  /* --delay: 0s; */
+}
+
+.card-front,
+.card-back {
+  grid-area: 1 / -1 / 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition-property: transform;
+  transition-duration: .8s;
+  transition-timing-function: cubic-bezier(0.230, 1.000, 0.320, 1.000); /* easeOutQuint */
+  font-size: 30px;
+  /* card size is 2.5 by 3.5 so 3.5/2.5 gets us 1.4 */
+  width: var(--card-size);
+  height: calc(var(--card-size) * 1.4);
+  border-radius: 4px;
+  /* border: 1px solid #9c92ac; */
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.18);
+}
+.card-front {
+  /* z-index: 2; */
+  background-color: var(--primary-color);
+  transform: rotateY(calc(180deg * var(--flipped)));
+}
+.card-back {
+  /* z-index: 1; */
+  transform: rotateY(calc(180deg * var(--flipped) - 180deg));
+  background-color: var(--secondary-color);
+  color: white;
+}
+    </style>
+  </head>
+  <body>
+    <div class="move-label">
+      <span class="move-count"></span> move(s)
+    </div>
+    <div class="full-grid disable-text-selection">
+    </div>
+    <script>
+      function createElementFromHTML(htmlString) {
+        var div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+        return div.firstChild;
+      }
+
+      // when changing grid columns/rows, also change CSS grid
+      const gridColumns = 4;
+      const gridRows = 4;
+      const totalCards = gridColumns * gridRows
+
+      function isOddNumber(n) {
+        return Math.abs(n % 2) === 1;
+      }
+
+      if (isOddNumber(totalCards)) {
+        throw("The number of total cards must be even!")
+      }
+
+      const numUniquePairs = totalCards / 2;
+
+      let data = new Array(numUniquePairs).fill().map((_, index) => index + 1)
+      data.push(...data)
+
+      // let puzzle = Array.from({length: gridRows}, () => {
+      //   return Array.from({length: gridColumns}, () => {
+      //     return data.splice(Math.floor(Math.random() * data.length), 1);
+      //   })
+      // })
+      // console.log('PUZZLE', puzzle)
+
+      let puzzle = Array.from({length: data.length}, () => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        return { type: data.splice(randomIndex, 1)[0].toString() };
+      })
+      console.log('PUZZLE', puzzle)
+
+      let solution = Array.from(puzzle, i => i.type)
+      console.log('SOLUTION', solution)
+
+      // let userAnswer = Array.from({length: puzzle.length})
+      let userAnswer = []
+
+      function checkAnswer() {
+        if (userAnswer.length !== solution.length)
+          return false
+
+        return userAnswer.concat().sort().join(",") === solution.concat().sort().join(",")
+      }
+
+      const grid = document.querySelector(".full-grid")
+      for (const [index, card] of puzzle.entries()) {
+        const template = `
+          <div class="cell card" data-index="${index}" data-type="${card.type}">
+            <div class="card-front"></div>
+            <div class="card-back">${card.type}</div>
+          </div>
+        `
+        grid.appendChild(createElementFromHTML(template))
+      }
+
+      function incrementMoveCount() {
+        moves++
+        updateMoveCount(moves)
+      }
+
+      function updateMoveCount(count) {
+        document.querySelector(".move-count").textContent = count
+      }
+
+      let moves = 0;
+
+      updateMoveCount(moves)
+
+      let openedCards = [];
+      let disableClick = false;
+
+      function delayOf(ms, ...args) {
+        return new Promise(resolve => setTimeout(resolve, ms, ...args))
+      }
+
+      let clickHandler = function(event) {
+        if (disableClick) {
+          console.log("click disabled");
+          return;
+        }
+
+        let cell = event.target.closest('.cell')
+        if (!cell)
+          return
+
+        // DEBUG flip animation
+        // cell.classList.toggle('toggled')
+        // return
+
+        if (!cell.classList.contains('toggled')) {
+          cell.classList.add('toggled')
+
+          openedCards.push(cell)
+
+          if (openedCards.length >= 2) {
+            incrementMoveCount()
+
+            // MATCH! (check win condition)
+            if (openedCards[0].dataset.type === openedCards[1].dataset.type) {
+              userAnswer.push(openedCards[0].dataset.type)
+              userAnswer.push(openedCards[1].dataset.type)
+              console.log(userAnswer)
+              setTimeout(function() {
+                if (checkAnswer()) {
+                  alert("You won!")
+                }
+              }, 600)
+            }
+            else {
+              // NOT A MATCH
+              disableClick = true;
+
+              Promise.all([
+                delayOf(600, openedCards[1]).then((el) => el.classList.remove("toggled")),
+                delayOf(800, openedCards[0]).then((el) => el.classList.remove("toggled"))
+              ]).then(() => {
+                disableClick = false
+              })
+              // for (const [index, card] of openedCards.concat().reverse().entries()) {
+              //   setTimeout(function(card) {
+              //     card.classList.remove("toggled");
+              //     disableClick = false;
+              //   }, 600 + (index * 160), card)
+              //   // }, 800 - (index * 200), card)
+              // }
+            }
+
+            openedCards = []
+          }
+        }
+      }
+
+      document.querySelector(".full-grid").addEventListener("click", clickHandler)
+    </script>
+  </body>
+</html>
