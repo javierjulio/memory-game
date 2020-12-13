@@ -16,7 +16,7 @@ function App() {
     data.push(...data)
 
     const puzzle = Array.from({length: data.length}, () => {
-      const randomIndex = Math.floor(Math.random() * data.length);
+      const randomIndex = Math.floor(rng() * data.length);
       return { type: data.splice(randomIndex, 1)[0].toString() };
     })
 
