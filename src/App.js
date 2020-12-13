@@ -10,9 +10,7 @@ function App() {
 
   const generatePuzzle = () => {
     const [columns, rows] = sizes[Math.floor(rng() * sizes.length)]
-    const totalCards = columns * rows
-
-    const numUniquePairs = totalCards / 2;
+    const numUniquePairs = (columns * rows) / 2;
 
     let data = new Array(numUniquePairs).fill().map((_, index) => index + 1)
     data.push(...data)
