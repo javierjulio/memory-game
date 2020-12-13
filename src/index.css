@@ -6,11 +6,13 @@
 * {
   box-sizing: border-box;
 }
+
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
+
 body {
   display: flex;
   flex-direction: column;
@@ -21,9 +23,6 @@ body {
 }
 
 .disable-text-selection {
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -46,7 +45,6 @@ body {
 
 .card {
   --flipped: 0;
-  /* --delay: .0s; */
   --card-size: 60px;
   --card-perspective-modifier: 8;
 
@@ -62,7 +60,6 @@ body {
 
 .card.toggled {
   --flipped: 1;
-  /* --delay: 0s; */
 }
 
 .card-front,
@@ -72,7 +69,6 @@ body {
   align-items: center;
   justify-content: center;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
   transition-property: transform;
   transition-duration: .8s;
@@ -87,14 +83,12 @@ body {
 }
 
 .card-front {
-  /* z-index: 2; */
   background-color: var(--primary-color);
   transform: rotateY(calc(180deg * var(--flipped)));
 }
 
 .card-back {
-  /* z-index: 1; */
-  transform: rotateY(calc(180deg * var(--flipped) - 180deg));
   background-color: var(--secondary-color);
   color: white;
+  transform: rotateY(calc(180deg * var(--flipped) - 180deg));
 }
