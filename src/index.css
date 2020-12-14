@@ -3,22 +3,26 @@
 
   --text-color: #334259;
   --text-inverted-color: #fff;
+  --text-muted-color: rgba(0, 0, 0, 0.5);
   --background-color: #fff;
   --button-background-color: #f0f0f0;
   --button-hover-background-color: #e0e0e0;
   --card-front-background-image: linear-gradient(120deg, #c471f5 0%, #fa71cd 100%);
   --card-back-background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --table-row-border-color: #dee2e6;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: #fff;
     --text-inverted-color: #242828;
+    --text-muted-color: rgba(255, 255, 255, 0.5);
     --background-color: #242828;
     --button-background-color: #343838;
     --button-hover-background-color: #444848;
     --card-front-background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
     --card-back-background-image: linear-gradient(120deg, #43e97b 0%, #38f9d7 100%);
+    --table-row-border-color: #555;
   }
 }
 
@@ -39,6 +43,49 @@ body {
   color: var(--text-color);
   font-size: 24px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  border-color: var(--table-row-border-color);
+  caption-side: bottom;
+  margin-bottom: 1rem;
+  vertical-align: top;
+  width: 100%;
+}
+
+table > thead {
+  vertical-align: bottom;
+}
+
+table > tbody {
+  vertical-align: inherit;
+}
+
+th,
+td {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}
+
+th {
+  border-bottom-color: currentColor;
+}
+
+th,
+td {
+  border-bottom-width: 1px;
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--text-muted-color);
+}
+
+.text-center {
+  text-align: center;
 }
 
 .icon {
@@ -65,10 +112,6 @@ body {
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
   user-select: none;
   vertical-align: middle;
-  /* padding-bottom: calc(.5em - 1px);
-  padding-left: calc(.75em - 1px);
-  padding-right: calc(.75em - 1px);
-  padding-top: calc(.5em - 1px); */
 }
 
 .button:active,
@@ -127,9 +170,6 @@ body {
   min-height: 72vh;
   overflow: hidden;
   position: absolute;
-  --padding: 1rem;
-  padding-top: var(--padding);
-  /* width: calc(100% - var(--padding)*2); */
   width: 100%;
   z-index: 10;
 }

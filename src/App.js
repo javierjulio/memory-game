@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import seedrandom from 'seedrandom';
 import Board from "./components/Board";
@@ -6,61 +6,105 @@ import Board from "./components/Board";
 import { BottomModal } from 'react-spring-modal';
 import { useTransition } from 'react-spring';
 
-const rng = seedrandom("Javier");
+function RecordsTable() {
+  const groupBy = (array, propOrFunc) => {
+    return array.reduce(function (obj, item) {
+      var key = typeof propOrFunc === 'function' ? propOrFunc(item) : item[propOrFunc];
 
-function HistoryList() {
-  let data = []
-  let json = JSON.parse(localStorage.getItem("gameHistory")) || []
-  data = json.map((item, index) => {
-    let [month, date, year]    = new Date(item.completedAt).toLocaleDateString("en-US").split("/")
-    let [hour, minute, _] = new Date(item.completedAt).toLocaleTimeString("en-US").split(/:| /)
-    return <li key={index}>{year}/{month}/{date} {hour}:{minute} - {item.moveCount} moves</li>
-  })
+      if (!obj.hasOwnProperty(key))
+        obj[key] = [];
+
+      obj[key].push(item);
+
+      return obj;
+    }, {});
+  };
+
+  const [data, setData] = useState({})
+
+  useEffect(() => {
+    const json = JSON.parse(localStorage.getItem("completedGames")) || []
+    const results = groupBy(json, "moveCount")
+    setData(results)
+  }, []);
+
+  const formatDate = (timestamp) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' }
+    return new Date(timestamp).toLocaleDateString(navigator.language, options)
+  }
+
+  const rows = () => {
+    if (Object.keys(data).length === 0) {
+      return <tr><td colSpan="3" className="text-muted text-center">No games played</td></tr>
+    }
+
+    const ascOrder = (a, b) => parseInt(a) - parseInt(b);
+
+    return Object.keys(data).sort(ascOrder).map(moveCount => (
+        <tr key={moveCount}>
+          <td>{moveCount}</td>
+          <td>{data[moveCount].length}</td>
+          <td>{formatDate(Math.max(...data[moveCount].map(i => i.timestamp)))}</td>
+        </tr>
+      )
+    )
+  }
 
   return (
     <div className="records-list">
-      <ol>
-        { data }
-      </ol>
+      <p style={{marginTop: "1rem"}} className="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
+      <table style={{marginTop: "30px"}}>
+        <thead>
+          <tr>
+            <th>Moves</th>
+            <th>Games</th>
+            <th>Last Played</th>
+          </tr>
+        </thead>
+        <tbody>
+          { rows() }
+        </tbody>
+      </table>
     </div>
   )
 }
 
 function App() {
-  const sizes = [ [4, 4] ]// ,  [4, 5] ]
-
-  const generatePuzzle = () => {
+  const generatePuzzleData = () => {
+    const rng = seedrandom("Javier");
+    const sizes = [ [4, 4] ]//, [4, 5] ]
     const [columns, rows] = sizes[Math.floor(rng() * sizes.length)]
     const numUniquePairs = (columns * rows) / 2;
 
-    let data = new Array(numUniquePairs).fill().map((_, index) => index + 1)
-    data.push(...data)
+    let types = new Array(numUniquePairs).fill().map((_, index) => index + 1)
+    types.push(...types)
 
-    const puzzle = Array.from({length: data.length}, () => {
-      const randomIndex = Math.floor(rng() * data.length);
-      return { type: data.splice(randomIndex, 1)[0].toString() };
+    const puzzleSet = Array.from({length: columns * rows}, () => {
+      const randomIndex = Math.floor(rng() * types.length);
+      return { type: types.splice(randomIndex, 1)[0].toString() };
     })
 
-    return { id: new Date().getTime(), puzzle: puzzle }
+    return { id: new Date().getTime(), puzzle: puzzleSet }
   }
 
-  const [data, setData] = useState(() => generatePuzzle())
+  const [data, setData] = useState(() => generatePuzzleData())
 
   const onCompleted = (moveCount) => {
     alert(`You won in ${moveCount} moves!`)
 
-    let history = JSON.parse(localStorage.getItem("gameHistory")) || []
+    let history = JSON.parse(localStorage.getItem("completedGames")) || []
     history.push({
+      itemCount: data.puzzle.length,
       moveCount: moveCount,
-      completedAt: new Date().getTime()
+      timestamp: new Date().getTime(),
     })
-    localStorage.setItem("gameHistory", JSON.stringify(history))
+    localStorage.setItem("completedGames", JSON.stringify(history))
 
     newPuzzle()
   }
 
   const newPuzzle = () => {
-    setData(generatePuzzle())
+    setData(generatePuzzleData())
   }
 
   const [isOpen, setOpen] = useState(false);
@@ -70,17 +114,21 @@ function App() {
   }
 
   const transition = useTransition(isOpen, null, {
-    from: { transform: 'translateY(100%) translateX(-50%)', opacity: 0 },
-    enter: { transform: 'translateY(0%) translateX(-50%)', opacity: 1 },
-    leave: { transform: 'translateY(100%) translateX(-50%)', opacity: 0 },
+    from: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.7 },
+    enter: { transform: 'translateY(0) translateX(-50%)', opacity: 1 },
+    leave: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.5 },
   });
 
   return(
     <div className="app-container">
       <Board key={data.id} puzzle={data.puzzle} onCompleted={onCompleted} showRecords={showRecords} />
       <BottomModal isOpen={isOpen} onRequestClose={() => setOpen(false)} modalTransition={transition}>
-        <button className="button" onClick={() => setOpen(false)}> Close </button>
-        <HistoryList />
+        <div style={{padding: "1rem", textAlign: "center", width: "100%"}}>
+          <button style={{width: "80%", justifyContent: "center"}} className="button" onClick={() => setOpen(false)}>
+            Close
+          </button>
+        </div>
+        <RecordsTable />
       </BottomModal>
     </div>
   )
