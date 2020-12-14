@@ -1,6 +1,6 @@
 # Memory Game
 
-TBD
+An endless, randomly generated, Memory (aka Concentration) game using cards. No timers or scores. The objective is to complete puzzles with the fewest possible moves which is recorded (LocalStorage) for your history. Good luck!
 
 ## Development
 
