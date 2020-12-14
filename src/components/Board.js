@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import Card from "./Card";
 import MoveCountLabel from "./MoveCountLabel";
+import { ReactComponent as AwardIcon } from "../svgs/award.svg";
 
 const delayOf = (ms, ...args) => {
   return new Promise(resolve => setTimeout(resolve, ms, ...args))
 }
 
-function Board({ puzzle, onCompleted }) {
+function Board({ puzzle, onCompleted, showRecords }) {
   const [solution, setSolution] = useState(() => {
     return Array.from(puzzle, (item, index) => {
       return { index: index, type: item.type, backfaceIsUp: false }
@@ -70,6 +71,12 @@ function Board({ puzzle, onCompleted }) {
       </div>
       <div className="footer-bar">
         <MoveCountLabel count={moveCount} />
+        <button className="button" onClick={showRecords}>
+          <span className="icon">
+            <AwardIcon />
+          </span>
+          Records
+        </button>
       </div>
     </div>
   )
