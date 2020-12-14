@@ -17,7 +17,7 @@ To deploy a new release, just run `npm run deploy` to [release on GitHub Pages](
 
 ## Resources and Notes
 
-TBD
+* https://webgradients.com
 
 # Create React App Info
 
