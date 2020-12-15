@@ -12,7 +12,7 @@ function Card({ item, disableAction, onOpen }) {
   return (
     <div className={classNames.join(" ")} onClick={clickHandler}>
       <div className="card-front"></div>
-      <div className="card-back">{item.type}</div>
+      <div className="card-back">{item.type.toString()}</div>
     </div>
   )
 }

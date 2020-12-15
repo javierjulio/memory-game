@@ -81,7 +81,7 @@ function App() {
 
     const puzzleSet = Array.from({length: columns * rows}, () => {
       const randomIndex = Math.floor(rng() * types.length);
-      return { type: types.splice(randomIndex, 1)[0].toString() };
+      return { type: types.splice(randomIndex, 1)[0] };
     })
 
     return { id: new Date().getTime(), puzzle: puzzleSet }
