@@ -71,23 +71,28 @@ function RecordsTable() {
 
 function App() {
   const generatePuzzleData = () => {
-    const rng = seedrandom("Javier");
+    const seed = Date.now().toString(36)
+    const rng = seedrandom(seed)
+
     const sizes = [ [4, 4] ]//, [4, 5] ]
     const [columns, rows] = sizes[Math.floor(rng() * sizes.length)]
-    const numUniquePairs = (columns * rows) / 2;
 
-    let types = new Array(numUniquePairs).fill().map((_, index) => index + 1)
+    const numUniqueTypes = (columns * rows) / 2
+    let types = new Array(numUniqueTypes).fill().map((_, index) => index + 1)
     types.push(...types)
 
-    const puzzleSet = Array.from({length: columns * rows}, () => {
+    const puzzleSet = Array.from({length: types.length}, () => {
       const randomIndex = Math.floor(rng() * types.length);
       return { type: types.splice(randomIndex, 1)[0] };
     })
-
-    return { id: new Date().getTime(), puzzle: puzzleSet }
+    return { seed: seed, puzzle: puzzleSet }
   }
 
-  const [data, setData] = useState(() => generatePuzzleData())
+  useEffect(() => {
+    setData(generatePuzzleData())
+  }, []);
+
+  const [data, setData] = useState({ seed: "", puzzle: []})
 
   const onCompleted = (moveCount) => {
     alert(`You won in ${moveCount} moves!`)
@@ -96,7 +101,8 @@ function App() {
     history.push({
       itemCount: data.puzzle.length,
       moveCount: moveCount,
-      timestamp: new Date().getTime(),
+      timestamp: Date.now(),
+      seed: data.seed
     })
     localStorage.setItem("completedGames", JSON.stringify(history))
 
@@ -121,7 +127,7 @@ function App() {
 
   return(
     <div className="app-container">
-      <Board key={data.id} puzzle={data.puzzle} onCompleted={onCompleted} showRecords={showRecords} />
+      <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={showRecords} />
       <BottomModal isOpen={isOpen} onRequestClose={() => setOpen(false)} modalTransition={transition}>
         <div style={{padding: "1rem", textAlign: "center", width: "100%"}}>
           <button style={{width: "80%", justifyContent: "center"}} className="button" onClick={() => setOpen(false)}>

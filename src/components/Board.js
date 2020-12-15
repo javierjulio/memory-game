@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from "./Card";
 import MoveCountLabel from "./MoveCountLabel";
 import { ReactComponent as AwardIcon } from "../svgs/award.svg";
@@ -8,15 +8,21 @@ const delayOf = (ms, ...args) => {
 }
 
 function Board({ puzzle, onCompleted, showRecords }) {
-  const [solution, setSolution] = useState(() => {
-    return Array.from(puzzle, (item, index) => {
-      return { index: index, type: item.type, backfaceIsUp: false }
-    })
-  })
+  const [solution, setSolution] = useState([])
 
   const [opened, setOpened] = useState([])
 
   const [moveCount, setMoveCount] = useState(0)
+
+  useEffect(() => {
+    setSolution(
+      Array.from(puzzle, (item, index) => {
+        return { index: index, type: item.type, backfaceIsUp: false }
+      })
+    )
+    setMoveCount(0)
+    setOpened([])
+  }, [puzzle])
 
   const resetByIndex = (index) => {
     solution[index].backfaceIsUp = false
