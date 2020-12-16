@@ -52,8 +52,8 @@ function RecordsTable() {
 
   return (
     <div className="records-list">
-      <p style={{marginTop: "1rem"}} className="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
-      <table style={{marginTop: "30px"}}>
+      <p className="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
+      <table>
         <thead>
           <tr>
             <th>Moves</th>
