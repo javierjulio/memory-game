@@ -129,8 +129,8 @@ function App() {
     <div className="app-container">
       <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={showRecords} />
       <BottomModal isOpen={isOpen} onRequestClose={() => setOpen(false)} modalTransition={transition}>
-          <button style={{width: "80%", justifyContent: "center"}} className="button" onClick={() => setOpen(false)}>
         <div style={{borderBottom: "1px solid #dcdcdc", padding: "1rem", textAlign: "center", width: "100%"}}>
+          <button style={{width: "70%", justifyContent: "center"}} className="button" onClick={() => setOpen(false)}>
             Close
           </button>
         </div>
