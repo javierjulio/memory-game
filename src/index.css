@@ -54,6 +54,16 @@ body {
   line-height: 1.5;
 }
 
+.app-root {
+  display: grid;
+}
+
+.app-container {
+  margin: auto; /* to center in both directions, along with .app-root grid */
+  max-width: 400px;
+  padding: 1rem;
+}
+
 table {
   border-collapse: collapse;
   border-color: var(--table-row-border-color);
@@ -132,17 +142,6 @@ td {
 .button,
 .move-label {
   padding: .375rem .75rem;
-}
-
-.app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 400px;
-  padding: 16px;
 }
 
 .ModalBackdrop {
