@@ -183,7 +183,6 @@ td {
 }
 
 .records-list {
-  color: var(--text-color);
   overflow-y: auto;
   padding: 0 1rem;
   width: 100%;
