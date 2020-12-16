@@ -51,6 +51,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.5;
 }
 
 table {
@@ -130,7 +131,6 @@ td {
 
 .button,
 .move-label {
-  line-height: 1.5;
   padding: .375rem .75rem;
 }
 
