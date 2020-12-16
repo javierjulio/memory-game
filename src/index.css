@@ -154,6 +154,7 @@ td {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 5;
 }
 
 @media (prefers-color-scheme: dark) {
