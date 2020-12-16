@@ -182,7 +182,6 @@ td {
   height: 100%; /* to enable vertically scrolling */
   overflow-y: auto;
   padding: 0 1rem;
-  width: 100%;
 }
 
 .disable-text-selection {
