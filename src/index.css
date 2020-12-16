@@ -182,7 +182,7 @@ td {
 
 .records-list {
   overflow-y: auto;
-  padding: 0 1rem;
+  padding: 0 1rem 1rem 1rem;
 }
 
 .disable-text-selection {
