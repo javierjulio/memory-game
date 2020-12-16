@@ -169,8 +169,10 @@ td {
   border-top-right-radius: var(--radius);
   bottom: 0;
   box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.3);
-  left: 50%;
+  display: flex; /* so child element can be vertically scrollable if needed */
+  flex-direction: column;
   height: 75%;
+  left: 50%;
   max-width: 400px;
   overflow: hidden;
   position: absolute;
@@ -179,7 +181,6 @@ td {
 }
 
 .records-list {
-  height: 100%; /* to enable vertically scrolling */
   overflow-y: auto;
   padding: 0 1rem;
 }
