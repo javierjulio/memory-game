@@ -71,8 +71,8 @@ function Board({ puzzle, onCompleted, showRecords }) {
   }
 
   return (
-    <div>
-      <div className="full-grid disable-text-selection">
+    <div className="disable-text-selection">
+      <div className="full-grid">
         { renderCards() }
       </div>
       <div className="footer-bar">
