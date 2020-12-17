@@ -201,6 +201,7 @@ td {
 }
 
 .disable-text-selection {
+  -webkit-touch-callout: none; /* disables long-touch menu */
   user-select: none;
 }
 
