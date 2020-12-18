@@ -179,6 +179,7 @@ td {
   left: 50%;
   max-width: 400px;
   overflow: hidden;
+  outline: none;
   position: absolute;
   width: 94%;
   z-index: 10;
