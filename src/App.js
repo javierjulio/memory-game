@@ -1,32 +1,21 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import seedrandom from 'seedrandom';
+import groupBy from "./utilities/groupBy";
 import Board from "./components/Board";
 
 import { BottomModal } from 'react-spring-modal';
 import { useTransition } from 'react-spring';
 
 function RecordsTable() {
-  const groupBy = (array, propOrFunc) => {
-    return array.reduce(function (obj, item) {
-      var key = typeof propOrFunc === 'function' ? propOrFunc(item) : item[propOrFunc];
-
-      if (!obj.hasOwnProperty(key))
-        obj[key] = [];
-
-      obj[key].push(item);
-
-      return obj;
-    }, {});
-  };
-
   const [data, setData] = useState({})
 
   useEffect(() => {
     const json = JSON.parse(localStorage.getItem("completedGames")) || []
-    const results = groupBy(json, "moveCount")
-    setData(results)
+    setData(groupBy(json, "moveCount"))
   }, []);
+
+  const ascOrder = (a, b) => parseInt(a) - parseInt(b);
 
   const formatDate = (timestamp) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric' }
@@ -37,8 +26,6 @@ function RecordsTable() {
     if (Object.keys(data).length === 0) {
       return <tr><td colSpan="3" className="text-muted text-center">No games played</td></tr>
     }
-
-    const ascOrder = (a, b) => parseInt(a) - parseInt(b);
 
     return Object.keys(data).sort(ascOrder).map(moveCount => (
         <tr key={moveCount}>
