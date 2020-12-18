@@ -120,9 +120,12 @@ function App() {
   }
 
   const transition = useTransition(isOpen, null, {
-    from: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.7 },
-    enter: { transform: 'translateY(0) translateX(-50%)', opacity: 1 },
-    leave: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.5 },
+    // from: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.7 },
+    // enter: { transform: 'translateY(0) translateX(-50%)', opacity: 1 },
+    // leave: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.5 },
+    from: { bottom: '-70vh', opacity: 0.7 },
+    enter: { bottom: '0', opacity: 1 },
+    leave: { bottom: '-70vh', opacity: 0.5 },
   });
 
   return(

@@ -151,12 +151,14 @@ td {
 .ModalBackdrop {
   --opacity: 0.5;
   background-color: hsla(0, 0%, 0%, var(--opacity));
-  height: 100%;
+  bottom: 0;
+  display: flex;
+  justify-content: center; /* horizontally center child */
   left: 0;
   overflow: hidden;
   position: fixed;
+  right: 0;
   top: 0;
-  width: 100%;
   z-index: 5;
 }
 
@@ -175,8 +177,8 @@ td {
   box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.3);
   display: flex; /* so child element can be vertically scrollable if needed */
   flex-direction: column;
-  height: 75%;
-  left: 50%;
+  height: 100%;
+  max-height: 70vh;
   max-width: 400px;
   overflow: hidden;
   outline: none;
