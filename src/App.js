@@ -1,60 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import seedrandom from 'seedrandom';
-import groupBy from "./utilities/groupBy";
 import Board from "./components/Board";
+import RecordsModal from './components/RecordsModal';
 
-import { BottomModal } from 'react-spring-modal';
 import { useTransition } from 'react-spring';
-
-function RecordsTable() {
-  const [data, setData] = useState({})
-
-  useEffect(() => {
-    const json = JSON.parse(localStorage.getItem("completedGames")) || []
-    setData(groupBy(json, "moveCount"))
-  }, []);
-
-  const ascOrder = (a, b) => parseInt(a) - parseInt(b);
-
-  const formatDate = (timestamp) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' }
-    return new Date(timestamp).toLocaleDateString(navigator.language, options)
-  }
-
-  const rows = () => {
-    if (Object.keys(data).length === 0) {
-      return <tr><td colSpan="3" className="text-muted text-center">No games played</td></tr>
-    }
-
-    return Object.keys(data).sort(ascOrder).map(moveCount => (
-        <tr key={moveCount}>
-          <td>{moveCount}</td>
-          <td>{data[moveCount].length}</td>
-          <td>{formatDate(Math.max(...data[moveCount].map(i => i.timestamp)))}</td>
-        </tr>
-      )
-    )
-  }
-
-  return (
-    <div className="records-list">
-      <p className="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Moves</th>
-            <th>Games</th>
-            <th>Last Played</th>
-          </tr>
-        </thead>
-        <tbody>
-          { rows() }
-        </tbody>
-      </table>
-    </div>
-  )
-}
 
 function App() {
   const generatePuzzleData = () => {
@@ -118,14 +68,7 @@ function App() {
   return(
     <div className="app-container">
       <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={showRecords} />
-      <BottomModal isOpen={isOpen} onRequestClose={() => setOpen(false)} modalTransition={transition}>
-        <div className="modal-header">
-          <button className="button modal-close-button" onClick={() => setOpen(false)}>
-            Close
-          </button>
-        </div>
-        <RecordsTable />
-      </BottomModal>
+      <RecordsModal isOpen={isOpen} onRequestClose={() => setOpen(false)} modalTransition={transition} />
     </div>
   )
 }
