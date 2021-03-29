@@ -9,8 +9,6 @@ An endless, randomly generated, Memory (aka Concentration) game using cards. No 
 3. `npm test`
 4. `npm run start`
 
-For e2e tests: `npm run e2e`
-
 ## Deployment
 
 To deploy a new release, just run `npm run deploy` to [release on GitHub Pages](https://create-react-app.dev/docs/deployment/#github-pages).
