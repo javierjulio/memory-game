@@ -49,19 +49,13 @@ function App() {
   }
 
   const [isOpen, setOpen] = useState(false);
-
-  const showRecords = () => {
-    setOpen(true)
-  }
-
-  const closeRecords = function() {
-    setOpen(false)
-  }
+  const openModal = () => setOpen(true);
+  const closeModal = () => setOpen(false);
 
   return(
     <div className="app-container">
-      <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={showRecords} />
-      <RecordsModal isOpen={isOpen} onDismiss={closeRecords} />
+      <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={openModal} />
+      <RecordsModal isOpen={isOpen} onClose={closeModal} onDismiss={closeModal} />
     </div>
   )
 }

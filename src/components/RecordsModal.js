@@ -2,7 +2,7 @@ import { animated, useTransition } from 'react-spring';
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import RecordsTable from './RecordsTable';
 
-function RecordsModal({ isOpen, onDismiss }) {
+function RecordsModal({ isOpen, onClose, onDismiss }) {
   const AnimatedDialogOverlay = animated(DialogOverlay);
   const AnimatedDialogContent = animated(DialogContent);
 
@@ -31,7 +31,7 @@ function RecordsModal({ isOpen, onDismiss }) {
                 style={{ transform: props.contentTransform }}
               >
                 <div className="modal-header">
-                  <button className="button modal-close-button" onClick={onDismiss}>
+                  <button className="button modal-close-button" onClick={onClose}>
                     Close
                   </button>
                 </div>
