@@ -15,9 +15,10 @@ To deploy a new release, just run `npm run deploy` to [release on GitHub Pages](
 
 ## Resources and Notes
 
-* Try replacing modal with dialog from https://reach.tech/dialog support for react-spring.
 * https://webgradients.com
 * https://feathericons.com
+* https://reach.tech/dialog
+* https://github.com/ChrisBrownie55/react-spring-modal
 
 # Create React App Info
 

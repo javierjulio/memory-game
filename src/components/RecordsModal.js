@@ -1,33 +1,49 @@
-import { BaseModal } from 'react-spring-modal';
+import { animated, useTransition } from 'react-spring';
+import { DialogOverlay, DialogContent } from "@reach/dialog";
 import RecordsTable from './RecordsTable';
 
-function RecordsModal(props) {
+function RecordsModal({ isOpen, onDismiss }) {
+  const AnimatedDialogOverlay = animated(DialogOverlay);
+  const AnimatedDialogContent = animated(DialogContent);
+
+  const transitions = useTransition(isOpen, null, {
+    from: { overlayOpacity: 0, contentTransform: 'translateY(102%)' },
+    enter: { overlayOpacity: 0.5, contentTransform: 'translateY(0)' },
+    leave: { overlayOpacity: 0, contentTransform: 'translateY(102%)' },
+  });
+
   return(
-    <BaseModal
-      {...props}
-      overlayProps={{ className: "ModalOverlay" }}
-      overlayTransition={{
-        from: { opacity: 0 },
-        enter: { opacity: 1 },
-        leave: { opacity: 0 },
-      }}
-      contentProps={{ className: "BottomModal" }}
-      contentTransition={{
-        from: { transform: 'translateY(102%)' },
-        enter: { transform: 'translateY(0)' },
-        leave: { transform: 'translateY(102%)' },
-      }}
-    >
-      <div className="modal-header">
-        <button className="button modal-close-button" onClick={props.onDismiss}>
-          Close
-        </button>
-      </div>
-      <div className="records-list">
-        <p className="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
-        <RecordsTable />
-      </div>
-    </BaseModal>
+    <>
+      {transitions.map(
+        ({ item, props, key }) =>
+          item && (
+            <AnimatedDialogOverlay
+              key={key}
+              dangerouslyBypassFocusLock={true}
+              dangerouslyBypassScrollLock={true}
+              onDismiss={onDismiss}
+              className="modal-overlay"
+              style={{ "--opacity": props.overlayOpacity }}
+            >
+              <AnimatedDialogContent
+                aria-labelledby="Records Table"
+                className="modal"
+                style={{ transform: props.contentTransform }}
+              >
+                <div className="modal-header">
+                  <button className="button modal-close-button" onClick={onDismiss}>
+                    Close
+                  </button>
+                </div>
+                <div className="records-list">
+                  <p className="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
+                  <RecordsTable />
+                </div>
+              </AnimatedDialogContent>
+            </AnimatedDialogOverlay>
+          )
+      )}
+    </>
   )
 }
 

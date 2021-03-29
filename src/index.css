@@ -2,6 +2,8 @@
   color-scheme: light dark;
   font-size: 1.125rem;
 
+  --reach-dialog: 1; /* disable Reach UI styles warning */
+
   --text-color: #334259;
   --text-inverted-color: #fff;
   --text-muted-color: rgba(0, 0, 0, 0.5);
@@ -148,7 +150,7 @@ td {
   cursor: default;
 }
 
-.ModalOverlay {
+.modal-overlay {
   --opacity: 0.5;
   background-color: hsla(0, 0%, 0%, var(--opacity));
   bottom: 0;
@@ -163,12 +165,12 @@ td {
 }
 
 @media (prefers-color-scheme: dark) {
-  .ModalOverlay {
+  .modal-overlay {
     background-color: hsla(0, 0%, 50%, calc(var(--opacity)))
   }
 }
 
-.BottomModal {
+.modal {
   background-color: var(--background-color);
   --radius: 8px;
   border-top-left-radius: var(--radius);
