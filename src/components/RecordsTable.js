@@ -1,14 +1,6 @@
-import { useEffect, useState } from 'react';
 import groupBy from "../utilities/groupBy";
 
-function RecordsTable() {
-  const [data, setData] = useState({})
-
-  useEffect(() => {
-    const json = JSON.parse(localStorage.getItem("completedGames")) || []
-    setData(groupBy(json, "moveCount"))
-  }, []);
-
+function RecordsTable({ data }) {
   const ascOrder = (a, b) => parseInt(a) - parseInt(b);
 
   const formatDate = (timestamp) => {
@@ -17,15 +9,17 @@ function RecordsTable() {
   }
 
   const rows = () => {
-    if (Object.keys(data).length === 0) {
+    const recordsData = groupBy(data || [], "moveCount");
+
+    if (Object.keys(recordsData).length === 0) {
       return <tr><td colSpan="3" className="text-muted text-center">No games played</td></tr>
     }
 
-    return Object.keys(data).sort(ascOrder).map(moveCount => (
+    return Object.keys(recordsData).sort(ascOrder).map(moveCount => (
         <tr key={moveCount}>
           <td>{moveCount}</td>
-          <td>{data[moveCount].length}</td>
-          <td>{formatDate(Math.max(...data[moveCount].map(i => i.timestamp)))}</td>
+          <td>{recordsData[moveCount].length}</td>
+          <td>{formatDate(Math.max(...recordsData[moveCount].map(i => i.timestamp)))}</td>
         </tr>
       )
     )

@@ -2,7 +2,7 @@ import { animated, useTransition } from 'react-spring';
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import RecordsTable from './RecordsTable';
 
-function RecordsModal({ isOpen, onClose, onDismiss }) {
+function RecordsModal({ data, isOpen, onClose, onDismiss }) {
   const AnimatedDialogOverlay = animated(DialogOverlay);
   const AnimatedDialogContent = animated(DialogContent);
 
@@ -37,7 +37,7 @@ function RecordsModal({ isOpen, onClose, onDismiss }) {
                 </div>
                 <div className="records-list">
                   <p className="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
-                  <RecordsTable />
+                  <RecordsTable data={data} />
                 </div>
               </AnimatedDialogContent>
             </AnimatedDialogOverlay>

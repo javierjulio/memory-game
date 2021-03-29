@@ -29,18 +29,23 @@ function App() {
 
   const [data, setData] = useState({ seed: "", puzzle: []})
 
-  const onCompleted = (moveCount) => {
-    alert(`You won in ${moveCount} moves!`)
+  const [records, setRecords] = useState(() => JSON.parse(localStorage.getItem("completedGames")) || [])
 
-    let history = JSON.parse(localStorage.getItem("completedGames")) || []
-    history.push({
+  const saveCompletedGame = (moveCount) => {
+    let games = JSON.parse(localStorage.getItem("completedGames")) || []
+    games.push({
       itemCount: data.puzzle.length,
       moveCount: moveCount,
       timestamp: Date.now(),
       seed: data.seed
     })
-    localStorage.setItem("completedGames", JSON.stringify(history))
+    localStorage.setItem("completedGames", JSON.stringify(games))
+    setRecords([...games])
+  }
 
+  const onCompleted = (moveCount) => {
+    alert(`You won in ${moveCount} moves!`)
+    saveCompletedGame(moveCount)
     newPuzzle()
   }
 
@@ -55,7 +60,7 @@ function App() {
   return(
     <div className="app-container">
       <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={openModal} />
-      <RecordsModal isOpen={isOpen} onClose={closeModal} onDismiss={closeModal} />
+      <RecordsModal data={records} isOpen={isOpen} onClose={closeModal} onDismiss={closeModal} />
     </div>
   )
 }
