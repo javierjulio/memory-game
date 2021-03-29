@@ -148,7 +148,7 @@ td {
   cursor: default;
 }
 
-.ModalBackdrop {
+.ModalOverlay {
   --opacity: 0.5;
   background-color: hsla(0, 0%, 0%, var(--opacity));
   bottom: 0;
@@ -163,7 +163,7 @@ td {
 }
 
 @media (prefers-color-scheme: dark) {
-  .ModalBackdrop {
+  .ModalOverlay {
     background-color: hsla(0, 0%, 50%, calc(var(--opacity)))
   }
 }

@@ -4,8 +4,6 @@ import seedrandom from 'seedrandom';
 import Board from "./components/Board";
 import RecordsModal from './components/RecordsModal';
 
-import { useTransition } from 'react-spring';
-
 function App() {
   const generatePuzzleData = () => {
     const seed = Date.now().toString(36)
@@ -56,19 +54,14 @@ function App() {
     setOpen(true)
   }
 
-  const transition = useTransition(isOpen, null, {
-    // from: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.7 },
-    // enter: { transform: 'translateY(0) translateX(-50%)', opacity: 1 },
-    // leave: { transform: 'translateY(102%) translateX(-50%)', opacity: 0.5 },
-    from: { bottom: '-70vh', opacity: 0.7 },
-    enter: { bottom: '0', opacity: 1 },
-    leave: { bottom: '-70vh', opacity: 0.5 },
-  });
+  const closeRecords = function() {
+    setOpen(false)
+  }
 
   return(
     <div className="app-container">
       <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={showRecords} />
-      <RecordsModal isOpen={isOpen} onRequestClose={() => setOpen(false)} modalTransition={transition} />
+      <RecordsModal isOpen={isOpen} onDismiss={closeRecords} />
     </div>
   )
 }
