@@ -19,8 +19,8 @@ function RecordsModal({ data, isOpen, onClose, onDismiss }) {
           item && (
             <AnimatedDialogOverlay
               key={key}
-              dangerouslyBypassFocusLock={true}
-              dangerouslyBypassScrollLock={true}
+              dangerouslyBypassFocusLock
+              dangerouslyBypassScrollLock
               onDismiss={onDismiss}
               className="modal-overlay"
               style={{ "--opacity": props.overlayOpacity }}
