@@ -8,7 +8,7 @@ const AnimatedDialogContent = animated(DialogContent);
 function RecordsModal({ data, isOpen, onClose, onDismiss }) {
   const transitions = useTransition(isOpen, null, {
     from: { overlayOpacity: 0, contentTransform: 'translateY(102%)' },
-    enter: { overlayOpacity: 0.5, contentTransform: 'translateY(0)' },
+    enter: { overlayOpacity: 0.5, contentTransform: 'translateY(0%)' },
     leave: { overlayOpacity: 0, contentTransform: 'translateY(102%)' },
   });
 
