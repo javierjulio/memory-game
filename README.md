@@ -1,6 +1,6 @@
 # Memory Game
 
-An endless, randomly generated, Memory (aka Concentration) game using cards. No timers or scores. The objective is to complete puzzles with the fewest possible moves which is recorded (LocalStorage) for your history. Good luck!
+An endless, randomly generated, Memory (aka Concentration) game using cards. No timers or scores. The objective is to complete puzzles with the fewest possible moves which is recorded (IndexedDB through Dexie.js) for your history. Good luck!
 
 ## Development
 
@@ -18,7 +18,6 @@ To deploy a new release, just run `npm run deploy` to [release on GitHub Pages](
 * https://webgradients.com
 * https://feathericons.com
 * https://reach.tech/dialog
-* https://github.com/ChrisBrownie55/react-spring-modal
 
 # Create React App Info
 

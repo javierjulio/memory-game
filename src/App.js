@@ -3,6 +3,7 @@ import './App.css';
 import seedrandom from 'seedrandom';
 import Board from "./components/Board";
 import RecordsModal from './components/RecordsModal';
+import { db } from "./lib/db";
 
 function App() {
   const generatePuzzleData = () => {
@@ -29,18 +30,13 @@ function App() {
 
   const [data, setData] = useState({ seed: "", puzzle: []})
 
-  const [records, setRecords] = useState(() => JSON.parse(localStorage.getItem("completedGames")) || [])
-
-  const saveCompletedGame = (moveCount) => {
-    let games = JSON.parse(localStorage.getItem("completedGames")) || []
-    games.push({
+  const saveCompletedGame = async (moveCount) => {
+    await db.completedGames.add({
       itemCount: data.puzzle.length,
       moveCount: moveCount,
       timestamp: Date.now(),
       seed: data.seed
-    })
-    localStorage.setItem("completedGames", JSON.stringify(games))
-    setRecords([...games])
+    });
   }
 
   const onCompleted = (moveCount) => {
@@ -60,7 +56,7 @@ function App() {
   return(
     <div className="app-container">
       <Board puzzle={data.puzzle} onCompleted={onCompleted} showRecords={openModal} />
-      <RecordsModal data={records} isOpen={isOpen} onClose={closeModal} onDismiss={closeModal} />
+      <RecordsModal isOpen={isOpen} onClose={closeModal} onDismiss={closeModal} />
     </div>
   )
 }

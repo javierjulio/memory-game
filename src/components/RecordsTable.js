@@ -1,6 +1,14 @@
 import groupBy from "../utilities/groupBy";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../lib/db";
 
-function RecordsTable({ data }) {
+function RecordsTable() {
+  const data = useLiveQuery(() => db.completedGames.toArray());
+
+  if (!data) {
+    return null;
+  }
+
   const ascOrder = (a, b) => parseInt(a) - parseInt(b);
 
   const formatDate = (timestamp) => {
