@@ -1,0 +1,84 @@
+:root {
+  color-scheme: light dark;
+  font-size: 1.125rem;
+
+  --text-color: #334259;
+  --text-inverted-color: #fff;
+  --text-muted-color: rgba(0, 0, 0, 0.5);
+  --background-color: #fff;
+  --button-background-color: #f0f0f0;
+  --button-hover-background-color: #e0e0e0;
+  --card-front-background-image: linear-gradient(120deg, #c471f5 0%, #fa71cd 100%);
+  --card-back-background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --table-row-border-color: #dee2e6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #fff;
+    --text-inverted-color: #242828;
+    --text-muted-color: rgba(255, 255, 255, 0.5);
+    --background-color: #242828;
+    --button-background-color: #343838;
+    --button-hover-background-color: #444848;
+    --card-front-background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    --card-back-background-image: linear-gradient(120deg, #43e97b 0%, #38f9d7 100%);
+    --table-row-border-color: #555;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+@media (min-width: 400px) {
+  :root {
+    font-size: 1.25rem;
+  }
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.5;
+}
+
+.button {
+  align-items: center;
+  background-color: var(--button-background-color);
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: none;
+  color: var(--text-color);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: inherit;
+  justify-content: flex-start;
+  margin: 0;
+  outline: 0;
+  text-align: center;
+  text-decoration: none;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.button:active,
+.button:hover {
+  background-color: var(--button-hover-background-color);
+  color: var(--text-color);
+}
+
+.button {
+  padding: .375rem .75rem;
+}
