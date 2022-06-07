@@ -11,7 +11,7 @@ An endless, randomly generated, Memory (aka Concentration) game using cards. No 
 
 ## Deployment
 
-To deploy a new release, just run `npm run deploy` to [release on GitHub Pages](https://create-react-app.dev/docs/deployment/#github-pages).
+To deploy a new release, just run `npm run deploy` to [release on GitHub Pages](https://create-react-app.dev/docs/deployment/#github-pages) using [gh-pages](https://github.com/tschaub/gh-pages).
 
 ## Resources and Notes
 
