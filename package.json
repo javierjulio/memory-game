@@ -1,7 +1,8 @@
 {
-  "name": "svelte-app",
+  "name": "memory-game",
+  "version": "0.2.0",
   "private": true,
-  "version": "0.0.0",
+  "homepage": "https://javierjulio.github.io/memory-game",
   "type": "module",
   "scripts": {
     "dev": "vite",
