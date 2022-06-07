@@ -1,0 +1,7 @@
+// Vitest Snapshot v1
+
+exports[`MoveCountLabel.svelte > renders given move count 1`] = `"<div><div class=\\"svelte-al6881\\">0 moves</div></div>"`;
+
+exports[`MoveCountLabel.svelte > renders label in plural form with count of 2 1`] = `"<div><div class=\\"svelte-al6881\\">2 moves</div></div>"`;
+
+exports[`MoveCountLabel.svelte > renders label in singular form with count of 1 1`] = `"<div><div class=\\"svelte-al6881\\">1 move</div></div>"`;
