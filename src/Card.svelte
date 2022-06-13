@@ -34,10 +34,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  .card:hover {
-    transform: scale(1.05);
-  }
-
   .card:active {
     transform: scale(1.15);
   }
