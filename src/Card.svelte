@@ -56,7 +56,7 @@
     transform-style: preserve-3d;
     transition-property: transform;
     transition-duration: .8s;
-    transition-timing-function: cubic-bezier(0.230, 1.000, 0.320, 1.000); /* easeOutQuint */
+    transition-timing-function: ease;
     font-size: 30px;
     /* card size is 2.5 by 3.5 so 3.5/2.5 gets us 1.4 */
     width: var(--card-size);
