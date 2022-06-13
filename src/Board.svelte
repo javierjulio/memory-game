@@ -89,6 +89,10 @@
 <style>
 .disable-text-selection {
   -webkit-touch-callout: none; /* disables long-touch menu */
+  /* add svelte-preprocess for autoprefixer to remove the below */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
