@@ -1,13 +1,11 @@
 <script>
   import Card from './Card.svelte';
-  import MoveCountLabel from './MoveCountLabel.svelte';
 
   export let puzzle = [];
   export let onCompleted;
-  export let showRecords;
+  export let moveCount = 0
 
   let opened = []
-  let moveCount = 0
 
   function delayOf(ms, ...args) {
     return new Promise(resolve => setTimeout(resolve, ms, ...args))
@@ -67,8 +65,8 @@
   }
 </script>
 
-<div class="disable-text-selection">
-  <div class="full-grid">
+<div>
+  <div class="full-grid disable-text-selection">
     {#each puzzle as item, index (index)}
       <Card item={item} flipped={item.backfaceIsUp} on:flip={handleFlip} flippable={opened.length < 2}>
         {item.type.toString()}
@@ -76,13 +74,8 @@
     {/each}
   </div>
   <div class="footer-bar">
-    <MoveCountLabel count={moveCount} />
-    <button class="button" on:click="{showRecords}">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
-      </span>
-      Records
-    </button>
+    <slot moveCount={moveCount}>
+    </slot>
   </div>
 </div>
 
@@ -110,12 +103,5 @@
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 20px;
   justify-items: center;
-}
-
-.icon {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-  margin-right: 6px;
 }
 </style>

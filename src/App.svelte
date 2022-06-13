@@ -1,6 +1,8 @@
 <script>
   import Board from './Board.svelte';
+  import RecordsButton from './RecordsButton.svelte';
   import RecordsModal from './RecordsModal.svelte';
+  import MoveCountLabel from './MoveCountLabel.svelte';
   import { db } from "./db"
 
   function generatePuzzleData() {
@@ -47,15 +49,14 @@
   }
 
   let showModal = false;
-
-  function showRecords() {
-    showModal = true
-  }
 </script>
 
 <div class="app-root">
   <div class="app-container">
-    <Board puzzle={puzzleData.puzzle} onCompleted={onCompleted} showRecords={showRecords}/>
+    <Board let:moveCount={moveCount} puzzle={puzzleData.puzzle} onCompleted={onCompleted}>
+      <MoveCountLabel count={moveCount}/>
+      <RecordsButton on:click={() => showModal = true}/>
+    </Board>
   </div>
 </div>
 {#if showModal}
