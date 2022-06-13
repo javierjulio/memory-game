@@ -55,7 +55,7 @@
     backface-visibility: hidden;
     transform-style: preserve-3d;
     transition-property: transform;
-    transition-duration: .8s;
+    transition-duration: .6s;
     transition-timing-function: ease;
     font-size: 30px;
     /* card size is 2.5 by 3.5 so 3.5/2.5 gets us 1.4 */
