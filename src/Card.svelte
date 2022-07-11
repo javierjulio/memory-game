@@ -30,12 +30,13 @@
     cursor: pointer;
     display: grid;
     perspective: calc(var(--card-size) * var(--card-perspective-modifier));
-    transition: transform .4s;
+    transition: transform .4s .2s;
     -webkit-tap-highlight-color: transparent;
   }
 
   .card:active {
     transform: scale(1.15);
+    transition-delay: 0s;
   }
 
   .card.toggled {
