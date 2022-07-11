@@ -1,9 +1,9 @@
 <script>
   import Card from './Card.svelte';
+  import { moveCount } from "./stores/moveCount"
 
   export let puzzle = [];
   export let onCompleted;
-  export let moveCount = 0
 
   let opened = []
 
@@ -21,9 +21,9 @@
     const completed = (puzzle.length === puzzle.filter((item) => item.backfaceIsUp).length)
 
     if (completed) {
-      delayOf(300, moveCount).then(() => {
-        onCompleted(moveCount)
-        moveCount = 0
+      delayOf(300).then(() => {
+        onCompleted($moveCount)
+        $moveCount = 0
       })
     }
   }
@@ -52,7 +52,7 @@
     opened = [...opened, item]
 
     if (opened.length >= 2) {
-      moveCount++
+      $moveCount++
 
       if (flippedPairMatches()) {
         opened = []
@@ -74,7 +74,7 @@
     {/each}
   </div>
   <div class="footer-bar">
-    <slot moveCount={moveCount}>
+    <slot>
     </slot>
   </div>
 </div>

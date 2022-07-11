@@ -4,6 +4,7 @@
   import RecordsModal from './RecordsModal.svelte';
   import MoveCountLabel from './MoveCountLabel.svelte';
   import { db } from "./db"
+  import { moveCount } from "./stores/moveCount"
 
   function generatePuzzleData() {
     // const seed = Date.now().toString(36)
@@ -53,8 +54,8 @@
 
 <div class="app-root">
   <div class="app-container">
-    <Board let:moveCount={moveCount} puzzle={puzzleData.puzzle} onCompleted={onCompleted}>
-      <MoveCountLabel count={moveCount}/>
+    <Board puzzle={puzzleData.puzzle} onCompleted={onCompleted}>
+      <MoveCountLabel count={$moveCount}/>
       <RecordsButton on:click={() => showModal = true}/>
     </Board>
   </div>
