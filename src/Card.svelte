@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="card" class:toggled={flipped} on:click={clickHandler} on:keyup={clickHandler}>
+<div data-testid="card-{item.type}" class="card" class:toggled={flipped} on:click={clickHandler} on:keyup={clickHandler}>
   <div class="card-front">
   </div>
   <div class="card-back">
