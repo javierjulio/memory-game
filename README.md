@@ -6,8 +6,9 @@ An endless, randomly generated, Memory (aka Concentration) game using cards. No 
 
 1. Install [Node.js v18+](https://nodejs.org/) and Yarn
 2. `yarn install`
-3. `npm test`
-4. `npm run start`
+3. `npx playwright install`
+4. `npm test`
+5. `npm run start`
 
 ## Deployment
 
