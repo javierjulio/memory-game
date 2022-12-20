@@ -30,9 +30,9 @@
     {:else}
       {#each Object.keys(recordsData).sort(ascOrder) as moveCount, index (index)}
         <tr>
-          <td>{moveCount}</td>
-          <td>{recordsData[moveCount].length}</td>
-          <td>{formatDate(Math.max(...recordsData[moveCount].map(i => i.timestamp)))}</td>
+          <td data-testid="records-row{index}-col0">{moveCount}</td>
+          <td data-testid="records-row{index}-col1">{recordsData[moveCount].length}</td>
+          <td data-testid="records-row{index}-col2">{formatDate(Math.max(...recordsData[moveCount].map(i => i.timestamp)))}</td>
         </tr>
       {/each}
     {/if}
