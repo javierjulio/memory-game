@@ -19,9 +19,9 @@
 <table>
   <thead>
     <tr>
-      <th>Moves</th>
-      <th>Games</th>
-      <th>Last Played</th>
+      <th scope="col">Moves</th>
+      <th scope="col">Games</th>
+      <th scope="col">Last Played</th>
     </tr>
   </thead>
   <tbody>
