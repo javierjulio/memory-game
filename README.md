@@ -18,8 +18,8 @@ To deploy a new release, just run `npm run deploy` to [release on GitHub Pages](
 
 * https://webgradients.com
 * https://feathericons.com
-* https://vitejs.dev
-* https://vitest.dev
 * https://github.com/vitest-dev/vitest/tree/main/examples/svelte
 * https://github.com/robole/svelte-todo-with-vitest-tests
-* https://testing-library.com/docs/svelte-testing-library/api
+* https://github.com/davipon/svelte-component-test-recipes
+* https://github.com/angus-c/just
+* https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_groupby
