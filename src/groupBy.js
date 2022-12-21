@@ -1,14 +1,5 @@
-const groupBy = (array, propOrFunc) => {
-  return array.reduce(function (obj, item) {
-    var key = typeof propOrFunc === 'function' ? propOrFunc(item) : item[propOrFunc];
+const groupBy = (array, property) => {
+  return array.reduce((r, v, i, a, k = v[property]) => ((r[k] || (r[k] = [])).push(v), r), {})
+}
 
-    if (!obj.hasOwnProperty(key))
-      obj[key] = [];
-
-    obj[key].push(item);
-
-    return obj;
-  }, {});
-};
-
-export default groupBy;
+export default groupBy
