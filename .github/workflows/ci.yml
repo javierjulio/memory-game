@@ -12,15 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-    name: Node ${{ matrix.node-version }}
+        node-version: [18.x]
+        browser: [chromium, firefox, webkit]
+    name: ${{ matrix.browser }} - Node ${{ matrix.node-version }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: yarn
-      - run: yarn install --frozen-lockfile --immutable
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test
+          cache: npm
+      - run: npm ci
+      - run: npm run test:unit
+      - run: npx playwright install --with-deps
+      - run: npx playwright test --browser ${{ matrix.browser }} --fully-parallel
