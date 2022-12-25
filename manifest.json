@@ -1,6 +1,6 @@
 {
   "short_name": "Memory Game",
-  "name": "Memory Game built with React",
+  "name": "Memory Game built with Svelte",
   "icons": [
     {
       "src": "favicon.svg",
