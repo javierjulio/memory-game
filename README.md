@@ -1,6 +1,6 @@
 # Memory Game
 
-An endless, randomly generated, Memory (aka Concentration) game using cards. No timers or scores. The objective is to complete puzzles with the fewest possible moves which is recorded (IndexedDB through Dexie.js) for your history. Good luck!
+An endless, randomly generated, Memory game (aka Concentration) using cards. No timers or scores. The objective is to complete puzzles with the fewest possible moves which is recorded (IndexedDB through Dexie.js) for your history. Good luck!
 
 ## Development
 
