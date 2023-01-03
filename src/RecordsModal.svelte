@@ -1,10 +1,18 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import Modal from './Modal.svelte';
   import RecordsTable from './RecordsTable.svelte';
 
 	const dispatch = createEventDispatcher();
 	const close = () => dispatch('close');
+
+  let persisted = false
+
+  onMount(async () => {
+    if (navigator.storage && navigator.storage.persist) {
+      persisted = await navigator.storage.persist()
+    }
+  })
 </script>
 
 <Modal on:close>
@@ -15,7 +23,12 @@
     </button>
   </div>
   <div slot="content" class="records-list">
-    <p class="text-muted">Your objective is to solve puzzles in the fewest moves possible.</p>
+    <p class="text-muted">
+      Your objective is to solve puzzles in the fewest moves possible.
+      {#if persisted}
+        Your history is persisted on this device.
+      {/if}
+    </p>
     <RecordsTable/>
   </div>
 </Modal>
