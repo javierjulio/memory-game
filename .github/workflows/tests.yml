@@ -27,4 +27,4 @@ jobs:
       - run: npm ci
       - run: npm run test:unit
       - run: npx playwright install --with-deps ${{ matrix.browser }}
-      - run: npx playwright test --browser ${{ matrix.browser }} --fully-parallel
+      - run: npx playwright test --browser ${{ matrix.browser }}

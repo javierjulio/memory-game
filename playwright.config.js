@@ -3,6 +3,7 @@
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 const config = {
   forbidOnly: !!process.env.CI, // Fail CI build if accidentally left test.only in code
+  fullyParallel: true,
   testDir: "tests",
   retries: process.env.CI ? 2 : 0,
   webServer: {

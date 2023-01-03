@@ -12,8 +12,8 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages --dist dist --dotfiles",
-    "test": "vitest run && playwright test --fully-parallel",
-    "test:e2e": "playwright test --browser all --fully-parallel",
+    "test": "vitest run && playwright test",
+    "test:e2e": "playwright test --browser all",
     "test:unit": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage"
