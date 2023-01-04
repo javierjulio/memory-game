@@ -54,10 +54,11 @@
 
 <div class="app-root">
   <div class="app-container">
-    <Board puzzle={puzzleData.puzzle} onCompleted={onCompleted}>
+    <Board puzzle={puzzleData.puzzle} onCompleted={onCompleted}/>
+    <div class="footer-bar">
       <MoveCountLabel count={$moveCount}/>
       <RecordsButton on:click={() => showModal = true}/>
-    </Board>
+    </div>
   </div>
 </div>
 {#if showModal}
@@ -66,18 +67,23 @@
 
 <style>
 .app-root {
-  /* display: grid; */
+  display: grid;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
 .app-container {
-  align-items: center;
-  display: grid;
-  height: 100%;
   margin: auto; /* to center in both directions, along with .app-root grid */
   max-width: 340px;
   padding: 1rem;
+}
+
+.footer-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 36px;
+  padding: 0 4px;
 }
 </style>

@@ -61,18 +61,12 @@
   }
 </script>
 
-<div>
-  <div class="full-grid disable-text-selection">
-    {#each puzzle as item, index (index)}
-      <Card item={item} flipped={item.backfaceIsUp} on:flip={handleFlip} flippable={opened.length < 2}>
-        {item.type.toString()}
-      </Card>
-    {/each}
-  </div>
-  <div class="footer-bar">
-    <slot>
-    </slot>
-  </div>
+<div class="full-grid disable-text-selection">
+  {#each puzzle as item, index (index)}
+    <Card item={item} flipped={item.backfaceIsUp} on:flip={handleFlip} flippable={opened.length < 2}>
+      {item.type.toString()}
+    </Card>
+  {/each}
 </div>
 
 <style>
@@ -83,14 +77,6 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.footer-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 36px;
-  padding: 0 4px;
 }
 
 .full-grid {
