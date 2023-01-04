@@ -29,10 +29,6 @@
   }
 
   function resetOpenedPair() {
-    // const increment = 200
-    // const promises = opened.reverse().map((item, index) => {
-    //   return delayOf(600 + (index*increment), item).then(resetItem)
-    // })
     const promises = [
       delayOf(600, opened[1]).then(resetItem),
       delayOf(800, opened[0]).then(resetItem),
