@@ -22,8 +22,7 @@
 
     if (completed) {
       delayOf(300).then(() => {
-        onCompleted($moveCount)
-        $moveCount = 0
+        onCompleted()
       })
     }
   }

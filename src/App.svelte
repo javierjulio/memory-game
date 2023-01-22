@@ -43,10 +43,18 @@
     });
   }
 
-  function onCompleted(moveCount) {
-    alert(`You won in ${moveCount} moves!`)
-    saveCompletedGame(moveCount)
-    puzzleData = generatePuzzleData()
+  function onCompleted() {
+    alert(`You won in ${$moveCount} moves!`)
+    saveCompletedGame($moveCount)
+    // puzzleData = generatePuzzleData()
+    puzzleData.puzzle = puzzleData.puzzle.map((item) => {
+      item.backfaceIsUp = false
+      return item
+    })
+    setTimeout(() => {
+      puzzleData = generatePuzzleData()
+      $moveCount = 0
+    }, 200)
   }
 
   let showModal = false;
