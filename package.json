@@ -28,7 +28,7 @@
     "gh-pages": "^5.0.0",
     "jsdom": "^20.0.3",
     "svelte": "^3.55.1",
-    "vite": "^4.0.2",
+    "vite": "^4.0.4",
     "vitest": "^0.26.1"
   },
   "dependencies": {
