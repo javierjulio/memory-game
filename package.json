@@ -29,7 +29,7 @@
     "jsdom": "^22.1.0",
     "svelte": "^3.59.2",
     "vite": "^4.3.9",
-    "vitest": "^0.31.4"
+    "vitest": "^0.32.2"
   },
   "dependencies": {
     "dexie": "^3.2.4"
