@@ -62,7 +62,7 @@
 
 <div class="full-grid disable-text-selection">
   {#each puzzle as item, index (index)}
-    <Card item={item} flipped={item.backfaceIsUp} on:flip={handleFlip} flippable={opened.length < 2}>
+    <Card index={index} item={item} flipped={item.backfaceIsUp} on:flip={handleFlip} flippable={opened.length < 2}>
       {item.type.toString()}
     </Card>
   {/each}

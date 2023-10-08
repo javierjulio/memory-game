@@ -3,6 +3,7 @@
 
   const dispatch = createEventDispatcher();
 
+  export let index = 0;
   export let item = { index: 0, type: 0, backfaceIsUp: false };
   export let flippable = true;
   export let flipped = false;
@@ -11,9 +12,14 @@
     if (flippable && !flipped)
       dispatch('flip', item)
   }
+
+  function keyUpHandler(event) {
+    if (event.code === "Space")
+      clickHandler()
+  }
 </script>
 
-<div data-testid="card-{item.type}" class="card" class:toggled={flipped} on:click={clickHandler} on:keyup={clickHandler}>
+<div data-testid="card-{item.type}" class="card" class:toggled={flipped} on:click={clickHandler} on:keyup={keyUpHandler} role="button" tabindex={index + 1}>
   <div class="card-front">
   </div>
   <div class="card-back">
