@@ -14,8 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
-        browser: [chromium, firefox, webkit]
+        node-version:
+          - 18.x
+          - 20.x
+        browser:
+          - chromium
+          - firefox
+          - webkit
     name: ${{ matrix.browser }} - Node ${{ matrix.node-version }}
     steps:
       - uses: actions/checkout@v4
