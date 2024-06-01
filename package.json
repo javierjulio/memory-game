@@ -19,7 +19,7 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@playwright/test": "^1.43.1",
+    "@playwright/test": "^1.44.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/svelte": "^5.1.0",
