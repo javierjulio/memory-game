@@ -32,6 +32,6 @@
     "vitest": "^2.0.5"
   },
   "dependencies": {
-    "dexie": "^3.2.5"
+    "dexie": "^4.0.8"
   }
 }
