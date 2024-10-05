@@ -4,7 +4,7 @@ An endless, randomly generated, Memory game (aka Concentration) using cards. No 
 
 ## Development
 
-1. Install [Node.js v18+](https://nodejs.org/)
+1. Install [Node.js 20+](https://nodejs.org/)
 2. `npm install`
 3. `npx playwright install`
 4. `npm test`
