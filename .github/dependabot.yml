@@ -10,6 +10,8 @@ updates:
       npm:
         patterns:
           - "*"
+        exclude-patterns:
+          - "dexie"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
