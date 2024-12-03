@@ -32,7 +32,7 @@
     return { puzzle: puzzleSet }
   }
 
-  let puzzleData = generatePuzzleData()
+  let puzzleData = $state(generatePuzzleData())
 
   const saveCompletedGame = async (moveCount) => {
     await db.completedGames.add({
@@ -57,20 +57,20 @@
     }, 200)
   }
 
-  let showModal = false;
+  let showModal = $state(false);
 </script>
 
 <div class="app-root">
   <div class="app-container">
-    <Board puzzle={puzzleData.puzzle} onCompleted={onCompleted}/>
+    <Board bind:puzzle={puzzleData.puzzle} completed={onCompleted}/>
     <div class="footer-bar">
       <MoveCountLabel count={$moveCount}/>
-      <RecordsButton on:click={() => showModal = true}/>
+      <RecordsButton onclick={() => showModal = true}/>
     </div>
   </div>
 </div>
 {#if showModal}
-  <RecordsModal on:close="{() => showModal = false}"/>
+  <RecordsModal close={() => showModal = false}/>
 {/if}
 
 <style>

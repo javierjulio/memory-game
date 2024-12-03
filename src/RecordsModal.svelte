@@ -1,36 +1,25 @@
 <script>
-  import { createEventDispatcher, onMount } from 'svelte';
   import Modal from './Modal.svelte';
   import RecordsTable from './RecordsTable.svelte';
 
-	const dispatch = createEventDispatcher();
-	const close = () => dispatch('close');
-
-  let persisted = false
-
-  onMount(async () => {
-    if (navigator.storage && navigator.storage.persist) {
-      persisted = await navigator.storage.persist()
-    }
-  })
+  let { close } = $props();
 </script>
 
-<Modal on:close>
-  <div slot="header" class="modal-header">
-    <!-- svelte-ignore a11y-autofocus -->
-    <button autofocus class="button modal-close-button" on:click={close}>
-      Close
-    </button>
-  </div>
-  <div slot="content" class="records-list">
-    <p class="text-muted">
-      Your objective is to solve puzzles in the fewest moves possible.
-      {#if persisted}
-        Your history is persisted on this device.
-      {/if}
-    </p>
-    <RecordsTable/>
-  </div>
+<Modal close={close}>
+  {#snippet header()}
+    <div  class="modal-header">
+      <!-- svelte-ignore a11y_autofocus -->
+      <button autofocus class="button modal-close-button" onclick={close}>
+        Close
+      </button>
+    </div>
+  {/snippet}
+  {#snippet content()}
+    <div  class="records-list">
+      <p class="text-muted">Your objective is to solve puzzles in the fewest moves possible. Your history is persisted on this device.</p>
+      <RecordsTable/>
+    </div>
+  {/snippet}
 </Modal>
 
 <style>

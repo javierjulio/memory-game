@@ -13,7 +13,7 @@
   // https://dexie.org/docs/Tutorial/Svelte
   let data = liveQuery(() => db.completedGames.toArray())
 
-  $: recordsData = groupBy($data || [], "moveCount");
+  let recordsData = $derived(groupBy($data || [], "moveCount"));
 </script>
 
 <table>
@@ -25,7 +25,7 @@
     </tr>
   </thead>
   <tbody>
-    {#if $data && $data.length === 0 }
+    {#if $data && $data.length === 0}
       <tr><td colSpan="3" class="muted centered">No games played</td></tr>
     {:else}
       {#each Object.keys(recordsData).sort(ascOrder) as moveCount, index (index)}

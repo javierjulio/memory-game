@@ -1,16 +1,16 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
-  export let index = 0;
-  export let item = { index: 0, type: 0, backfaceIsUp: false };
-  export let flippable = true;
-  export let flipped = false;
+  let {
+    index = 0,
+    item = { index: 0, type: 0, backfaceIsUp: false },
+    flippable = true,
+    flipped = false,
+    flip,
+    children
+  } = $props();
 
   function clickHandler() {
     if (flippable && !flipped)
-      dispatch('flip', item)
+      flip(item)
   }
 
   function keyUpHandler(event) {
@@ -19,11 +19,11 @@
   }
 </script>
 
-<div data-testid="card-{item.type}" class="card" class:toggled={flipped} on:click={clickHandler} on:keyup={keyUpHandler} role="button" tabindex={index + 1}>
+<div data-testid="card-{item.type}" class="card" class:toggled={flipped} onclick={clickHandler} onkeyup={keyUpHandler} role="button" tabindex={index + 1}>
   <div class="card-front">
   </div>
   <div class="card-back">
-    <slot></slot>
+    {@render children?.()}
   </div>
 </div>
 

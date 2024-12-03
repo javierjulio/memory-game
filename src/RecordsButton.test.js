@@ -8,16 +8,13 @@ describe("RecordsButton", () => {
   })
 
   it("forwards the click event", async () => {
-    const { component } = render(RecordsButton)
-
     let clickReceived = false
-    const off = component.$on('click', () => clickReceived = true)
+
+    const { component } = render(RecordsButton, { onclick: () => clickReceived = true })
 
     const button = screen.queryByRole("button", { name: "Records" })
     await fireEvent.click(button)
 
     expect(clickReceived).toEqual(true)
-
-    off()
   })
 })

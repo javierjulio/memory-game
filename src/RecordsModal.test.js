@@ -18,16 +18,13 @@ describe("RecordsModal", () => {
   })
 
   it("forwards the close event", async () => {
-    const { component } = render(RecordsModal)
-
     let closeReceived = false
-    const off = component.$on('close', () => closeReceived = true)
+
+    const { component } = render(RecordsModal, { close: () => closeReceived = true })
 
     const button = screen.queryByRole("button", { name: "Close" })
     await fireEvent.click(button)
 
     expect(closeReceived).toEqual(true)
-
-    off()
   })
 })

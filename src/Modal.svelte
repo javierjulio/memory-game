@@ -1,12 +1,11 @@
 <script>
-  import { createEventDispatcher, onDestroy } from 'svelte';
+  import { onDestroy } from 'svelte';
   import { quintOut, sineInOut } from 'svelte/easing';
   import { fade, slide } from 'svelte/transition';
 
-  const dispatch = createEventDispatcher();
-  const close = () => dispatch('close');
+  let { header, content, close } = $props();
 
-  let modal;
+  let modal = $state();
 
   const handle_keydown = e => {
     if (e.key === 'Escape') {
@@ -39,16 +38,18 @@
   }
 </script>
 
-<svelte:window on:keydown={handle_keydown}/>
+<svelte:window onkeydown={handle_keydown}/>
 
 <div class="modal-overlay">
-  <div class="modal-backdrop" transition:fade="{{ duration: 600, easing: sineInOut }}" on:pointerdown={close}>
+  <div class="modal-backdrop" transition:fade="{{ duration: 600, easing: sineInOut }}" onpointerdown={close}>
   </div>
   <div class="modal" role="dialog" aria-modal="true" bind:this={modal} transition:slide="{{ duration: 600, easing: quintOut }}">
-    <slot name="header">
-    </slot>
-    <slot name="content">
-    </slot>
+    {#if header}
+      {@render header()}
+    {/if}
+    {#if content}
+      {@render content()}
+    {/if}
   </div>
 </div>
 

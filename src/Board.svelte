@@ -2,10 +2,9 @@
   import Card from './Card.svelte';
   import { moveCount } from "./stores/moveCount"
 
-  export let puzzle = [];
-  export let onCompleted;
+  let { puzzle = $bindable([]), completed } = $props();
 
-  let opened = []
+  let opened = $state([])
 
   function delayOf(ms, ...args) {
     return new Promise(resolve => setTimeout(resolve, ms, ...args))
@@ -13,16 +12,14 @@
 
   function resetItem(item) {
     item.backfaceIsUp = false
-    puzzle = puzzle
-    // puzzle[item.index].backfaceIsUp = false
   }
 
   function checkCompletion() {
-    const completed = (puzzle.length === puzzle.filter((item) => item.backfaceIsUp).length)
+    const puzzleCompleted = (puzzle.length === puzzle.filter((item) => item.backfaceIsUp).length)
 
-    if (completed) {
+    if (puzzleCompleted) {
       delayOf(300).then(() => {
-        onCompleted()
+        completed()
       })
     }
   }
@@ -39,10 +36,8 @@
     return opened[0].type === opened[1].type
   }
 
-  function handleFlip(event) {
-    const item = event.detail
-    puzzle[item.index].backfaceIsUp = !puzzle[item.index].backfaceIsUp
-    // puzzle = [...puzzle]
+  function handleFlip(item) {
+    item.backfaceIsUp = !item.backfaceIsUp
 
     opened = [...opened, item]
 
@@ -62,7 +57,7 @@
 
 <div class="full-grid disable-text-selection">
   {#each puzzle as item, index (index)}
-    <Card index={index} item={item} flipped={item.backfaceIsUp} on:flip={handleFlip} flippable={opened.length < 2}>
+    <Card index={index} item={item} flipped={item.backfaceIsUp} flip={handleFlip} flippable={opened.length < 2}>
       {item.type.toString()}
     </Card>
   {/each}
