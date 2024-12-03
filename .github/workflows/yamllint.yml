@@ -1,16 +1,7 @@
 name: YAML Lint
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - '**.yaml'
-      - '**.yml'
   pull_request:
-    paths:
-      - '**.yaml'
-      - '**.yml'
 
 jobs:
   yaml_lint:
@@ -23,4 +14,4 @@ jobs:
           fail_level: any
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
+          reporter: github-pr-check

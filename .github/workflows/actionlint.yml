@@ -1,16 +1,7 @@
 name: GitHub Actions Lint
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - '.github/workflows/**/*.yaml'
-      - '.github/workflows/**/*.yml'
   pull_request:
-    paths:
-      - '.github/workflows/**/*.yaml'
-      - '.github/workflows/**/*.yml'
 
 jobs:
   actionlint:
@@ -23,4 +14,4 @@ jobs:
           fail_level: any
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-check
+          reporter: github-pr-check
