@@ -41,7 +41,7 @@
 <svelte:window onkeydown={handle_keydown}/>
 
 <div class="modal-overlay">
-  <div class="modal-backdrop" transition:fade="{{ duration: 600, easing: sineInOut }}" onpointerdown={close}>
+  <div class="modal-backdrop" transition:fade="{{ duration: 600, easing: sineInOut }}" onpointerdown={close} aria-hidden="true" role="presentation">
   </div>
   <div class="modal" role="dialog" aria-modal="true" bind:this={modal} transition:slide="{{ duration: 600, easing: quintOut }}">
     {#if header}
