@@ -19,16 +19,16 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.1",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/svelte": "^5.3.1",
-    "@vitest/coverage-v8": "^4.1.8",
+    "@testing-library/svelte": "^5.4.2",
+    "@vitest/coverage-v8": "^4.1.9",
     "@vitest/ui": "^4.1.5",
     "gh-pages": "^6.3.0",
     "jsdom": "^29.1.1",
-    "svelte": "^5.56.1",
-    "vite": "^8.0.16",
+    "svelte": "^5.56.4",
+    "vite": "^8.1.2",
     "vitest": "^4.1.5"
   },
   "dependencies": {
